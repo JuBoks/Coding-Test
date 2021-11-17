@@ -9,7 +9,7 @@ newStr = []
 #     else:
 #         newStr.append(i)
 
-# 2. 💖isalpha() 함수를통해 알파벳을 구분💖
+# 2. 💖isalpha() 함수를통해 알파벳을 구분💖 
 for i in N:
     if i.isalpha():
         newStr.append(i)
