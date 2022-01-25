@@ -1,3 +1,4 @@
+# 중간값을 도출하는 문제였음;
 import sys
 
 N = int(input())
@@ -5,6 +6,8 @@ arr = list(map(int, sys.stdin.readline().rstrip().split()))
 arr.sort()
 
 print(arr[(N-1) // 2])
+
+# 틀린거
 # table = {}
 # for elm in arr:
 #     if not elm in table:

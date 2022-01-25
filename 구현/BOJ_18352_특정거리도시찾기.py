@@ -22,7 +22,7 @@ while queue:
             queue.append(node)
 
 flag = True
-for i in range(M+1):
+for i in range(N+1):
     if table_length[i] == K:
         flag = False
         print(i)

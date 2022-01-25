@@ -37,8 +37,6 @@ def solution():
 
         day += 1
 
-    for elm in graph:
-        print(elm)
     print(day)
 
 def bfs_getUnion(y, x):

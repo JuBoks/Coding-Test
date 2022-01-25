@@ -61,9 +61,11 @@ def solution():
                     X.add((start, fixed))
                 start += 1
 
-    check_flag = [False for _ in range(len(check))]
     if len(X) < 3:
         return "YES"
+        
+    check_flag = [False for _ in range(len(check))]
+        
     for elm in list(combinations(X, 3)):
         for x, y in elm:
             idx = 0

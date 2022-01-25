@@ -6,7 +6,6 @@ def solution():
 
     left = bisect_left(arr, x)
     right = bisect_right(arr, x)
-    print(left, right)
     if left == right:
         result = -1
     else:

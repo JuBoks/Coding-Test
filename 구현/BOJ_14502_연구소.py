@@ -1,5 +1,3 @@
-# combinations
-# bfs 로 시뮬레이션
 from itertools import combinations
 from collections import deque
 import sys
@@ -32,9 +30,6 @@ def solution():
         count = bfs_simulation(graph_copied, queue_copied, N-1, M-1)
         if result < count:
             result = count
-            if result == 14:
-                for elm in graph_copied:
-                    print(elm)
 
     print(result)
 
