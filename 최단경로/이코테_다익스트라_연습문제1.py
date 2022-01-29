@@ -52,8 +52,11 @@ def solution():
         visited[node_num] = True
 
         for idx in range(1, N+1):
+            # 두 노드간에 거리 정보가 있다면,
             if graph[node_num][idx] > 0:
+                # 시작 노드로부터 해당 노드까지의 총 거리를 구함
                 total_distance = graph[node_num][idx] + dikstra[node_num]
+                # 총 거리 값이 기존 최소값 보다 작으면 갱신
                 if dikstra[idx] > total_distance:
                     dikstra[idx] = total_distance
 
