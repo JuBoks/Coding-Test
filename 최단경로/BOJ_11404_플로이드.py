@@ -5,8 +5,6 @@ def solution():
     M = int(input())
     INF = int(1e9)
     graph = [[INF for _ in range(N+1)] for _ in range(N+1)]
-    # for idx in range(N+1):
-    #     graph[idx][idx] = 0
 
     for _ in range(M):
         s, d, v = map(int, sys.stdin.readline().rstrip().split())
@@ -26,7 +24,7 @@ def solution():
     
     for arr in graph[1:]:
         for el in arr[1:]:
-            if el >= int(1e9):
+            if el >= INF:
                 el = 0
             print(el, end=' ')
         print() 

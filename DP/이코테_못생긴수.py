@@ -25,6 +25,7 @@ def solution():
     print(ugly[N-1])
 
 # 시간 초과
+# 1000 번째에 들어오는 값이 얼마나 들어가는지도 모르면서 계속 루프를 도니까
 # def solution():
 #     N = int(input())
 #     arr = [1]

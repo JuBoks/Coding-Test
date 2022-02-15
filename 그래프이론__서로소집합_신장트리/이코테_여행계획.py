@@ -46,6 +46,7 @@ def findParent(x, parent):
         parent[x] = findParent(parent[x], parent)
     return parent[x]
 
+# 아래는 비효율적 
 def solution():
     N, M = map(int, input().split())
     table = [[0 for _ in range(N+1)]]

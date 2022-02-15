@@ -18,10 +18,6 @@ def solution():
             heapq.heappush(q, (v, coords[x][0], coords[x+1][0]))
 
         step += 1
-        # for x in range(N):
-        #     for y in range(x+1, N):
-        #         v = min(abs(coords[x][0]-coords[y][0]), abs(coords[x][1]-coords[y][1]), abs(coords[x][2]-coords[y][2]))
-        #         heapq.heappush(q, (v, x, y))
 
     parent = [0] * N
     for i in range(N):

@@ -53,7 +53,7 @@ def dikstra(node_s, node_d, graph, N):
         if visited[node_start] == True:
             continue
         visited[node_start] = True
-        for idx in range(N+1):
+        for idx in range(1, N+1):
             if graph[node_start][idx] > 0:
                 value = dikstra_list[node_start] + graph[node_start][idx]
                 if value < dikstra_list[idx]:

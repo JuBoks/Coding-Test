@@ -23,7 +23,6 @@ def solution():
     INF = int(1e9)
     time = 0
     count = 0
-    print(dikstra_list)
     for el in dikstra_list:
         if el < INF and el > 0:
             count += 1

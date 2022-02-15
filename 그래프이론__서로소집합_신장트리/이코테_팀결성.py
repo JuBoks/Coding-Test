@@ -31,21 +31,6 @@ def solution():
             else:
                 print("NO")
 
-    
-    # union 을 다 끝마친 뒤, 각 원소에 findParent()를 해줌으로써
-    # 전부 루트노드 데이터로 변경
-    # for i in range(1, N+1):
-    #     findParent(parent, i)
-
-    # for x, y in quest:
-    #     x = findParent(parent, x)
-    #     y = findParent(parent, y)
-    #     if x == y:
-    #         print("YES")
-    #     else:
-    #         print("NO")
-
-
 def unionParent(parent, x, y):
     x = findParent(parent, x)
     y = findParent(parent, y)

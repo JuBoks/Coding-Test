@@ -13,7 +13,6 @@ from collections import deque
 
 def solution():
     N, M = map(int, input().split())
-    visited = [False] * (N+1)
     indegree = [0] * (N+1)
 
     graph = [[0 for _ in range(N+1)] for _ in range(N+1)]
@@ -46,22 +45,16 @@ def solution():
     q.append(start)
     while q:
         node = q.popleft()
-        # if visited[node] == True:
-        #     continue
-        # visited[node] = True
         
         # 간선 제거후 진입차수 업데이트
         for i in range(1, N+1):
             if graph[node][i] > 0:
                 graph[node][i] = 0
                 indegree[i] -= 1
+                # 새롭게 진입차수가 0이 되는 원소를 큐에 추가
                 if indegree[i] == 0:
                     q.append(i)
 
-        # for i in range(1, N+1):
-        #     if visited[i] == False and indegree[i] == 0:
-        #         q.append(i)
-        
         result.append(node)
 
     # q는 비었는데 모든 노드를 방문 못한경우 -> 사이클 존재함

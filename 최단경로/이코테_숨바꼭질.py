@@ -45,6 +45,5 @@ def solution():
             count += 1
 
     print('{0} {1} {2}'.format(node_num, value_max, count))
-    
 
 solution()
