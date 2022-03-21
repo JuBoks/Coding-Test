@@ -1,139 +1,89 @@
 import sys
-from unittest import result
 
 def solution():
-    global result, x, y
-    result = 0
+    global x, y, coverType
+
+    coverType = [
+        [(0, 0), (0, 1), (1, 0)], # ┌
+        [(0, 0), (0, 1), (1, 1)], # ┐
+        [(0, 0), (1, 0), (1, 1)], # └
+        [(0, 0), (1, -1), (1, 0)] # ┘
+    ]
 
     N = int(input())
-    x, y = map(int, input().split())
-    graph = [[0 for _ in range(y)] for _ in range(x)]
-    for i in range(x):
-        box = list(sys.stdin.readline().rstrip())
-        for k in range(y):
-            if box[k] == '.':
-                graph[i][k] = 1
-    
-    getAllCases(0, 0, graph)
+    while N > 0:
+        N -= 1
+        x, y = map(int, input().split())
+        blankCount = 0
+        graph = [[1 for _ in range(y)] for _ in range(x)]
+        for i in range(x):
+            box = list(sys.stdin.readline().rstrip())
+            for k in range(y):
+                if box[k] == '.':
+                    # 덮인 곳은 1, 안 덮인 곳은 0
+                    graph[i][k] = 0
+                    blankCount += 1
+        
+        # 빈칸의 개수가 3의 배수가 아니면 무조건 다 덮을 수 없음
+        if blankCount % 3 != 0:
+            print(0)
+            continue
 
-    print(result)
+        # printGraph(graph)
+        result = getAllCases(graph)
+        print(result)
 
-def getNextPosition(row, col):
-    next_row = 0
-    next_col = 0
 
-    if col + 1 == y:
-        next_row = row + 1
-        if next_row == x:
-            next_row = -1
-            next_col = -1
+def printGraph(graph):
+    print("################")
+    for el in graph:
+        print(el)
+
+def isInBoard(row, col):
+    if row < x and row >= 0 and col < y and col >= 0:
+        return True
     else:
-        next_row = row
-        next_col = col + 1
-    
-    return next_row, next_col
+        return False
 
-def getAllCases(row, col, graph):
-    # loop 다 돌고
+def setBoard(row, col, type, graph, value):
+    isOk = True
+    for x_delta, y_delta in coverType[type]:
+        row_next = row + x_delta
+        col_next = col + y_delta
+        if isInBoard(row_next, col_next) == False:
+            isOk = False
+            continue
+        graph[row_next][col_next] += value
+        if graph[row_next][col_next] > 1:
+            isOk = False
+    return isOk
+
+
+def getAllCases(graph):
+    # 맨 위, 왼쪽부터 빈칸을 찾는다.
+    row, col = isFull(graph)
+
+    # 다 채워졌다면 개수를 센다
     if row == -1:
-        # 모든 칸이 채워졌는지
-        print(graph)
-        if isFull(graph) == True:
-            result += 1
-            return True
-        else:
-            return False
-    
-    # 빈칸이면
-    if graph[row][col] == 1:
-        if isCanBePlaced1(row, col, graph) == True:
-            graph[row][col] = 0
-            graph[row][col+1] = 0
-            graph[row+1][col] = 0
-            next_row, next_col = getNextPosition(row, col)
-            getAllCases(next_row, next_col, graph)
-            graph[row][col] = 1
-            graph[row][col+1] = 1
-            graph[row+1][col] = 1
+        return 1
 
-        if isCanBePlaced2(row, col, graph) == True:
-            graph[row][col] = 0
-            graph[row][col+1] = 0
-            graph[row+1][col+1] = 0
-            next_row, next_col = getNextPosition(row, col)
-            getAllCases(next_row, next_col, graph)
-            graph[row][col] = 1
-            graph[row][col+1] = 1
-            graph[row+1][col+1] = 1
-            
-        if isCanBePlaced3(row, col, graph) == True:
-            graph[row][col] = 0
-            graph[row+1][col] = 0
-            graph[row+1][col+1] = 0
-            next_row, next_col = getNextPosition(row, col)
-            getAllCases(next_row, next_col, graph)
-            graph[row][col] = 1
-            graph[row+1][col] = 1
-            graph[row+1][col+1] = 1
+    result = 0
+    for i in range(4):
+        # 각 coverType 에 따라 덮어보기
+        if setBoard(row, col, i, graph, 1):
+            # 덮어지면 재귀호출로 계속 덮어본다
+            result += getAllCases(graph)
+        # 덮었던 것을 다시 뗴어낸다
+        setBoard(row, col, i, graph, -1)
 
-        if isCanBePlaced4(row, col, graph) == True:
-            graph[row][col] = 0
-            graph[row+1][col] = 0
-            graph[row+1][col-1] = 0
-            next_row, next_col = getNextPosition(row, col)
-            getAllCases(next_row, next_col, graph)
-            graph[row][col] = 1
-            graph[row+1][col] = 1
-            graph[row+1][col-1] = 1
-    else:
-        next_row, next_col = getNextPosition(row, col)
-        getAllCases(next_row, next_col, graph)
-                
-# ┌
-def isCanBePlaced1(row, col, graph):
-    if col + 1 == y or row + 1 == x:
-        return False
-
-    if graph[row][col] == 1 and graph[row][col+1] == 1 and graph[row+1][col] == 1:
-        return True
-    else:
-        return False
-
-# ┐
-def isCanBePlaced2(row, col, graph):
-    if col + 1 == y or row + 1 == x:
-        return False
-
-    if graph[row][col] == 1 and graph[row][col+1] == 1 and graph[row+1][col+1] == 1:
-        return True
-    else:
-        return False
-
-# └
-def isCanBePlaced3(row, col, graph):
-    if col + 1 == y or row + 1 == x:
-        return False
-
-    if graph[row][col] == 1 and graph[row+1][col] == 1 and graph[row+1][col+1] == 1:
-        return True
-    else:
-        return False
-
-# ┘
-def isCanBePlaced4(row, col, graph):
-    if col - 1 < 0 or row + 1 == x:
-        return False
-
-    if graph[row][col] == 1 and graph[row+1][col] == 1 and graph[row+1][col-1] == 1:
-        return True
-    else:
-        return False
+    # 부모에게 값을 전달함
+    return result
 
 def isFull(graph):
     for row in range(x):
         for col in range(y):
-            if graph[row][col] == 1:
-                return False
-    return True
+            if graph[row][col] == 0:
+                return (row, col)
+    return (-1, -1)
 
 solution()
