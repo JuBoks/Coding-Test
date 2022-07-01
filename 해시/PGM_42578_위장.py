@@ -16,15 +16,6 @@ def solution(clothes):
     answer *= table[key]
   
   answer -= 1
-  
-  # keys = table.keys()
-  # for i in range(1, len(keys) + 1):
-  #   combs = list(combinations(keys, i))
-  #   for comb in combs:
-  #     total = len(table[comb[0]])
-  #     for el in comb[1:]:
-  #       total *= len(table[el])
-  #     answer += total
 
   return answer
   
