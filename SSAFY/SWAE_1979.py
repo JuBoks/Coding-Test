@@ -54,7 +54,5 @@ for test_case in range(1, T + 1):
         if whites == K:
           result += 1
           
-  # for el in graph:
-  #   print(el)
   print('#%d' % test_case, result)
   # ///////////////////////////////////////////////////////////////////////////////////
