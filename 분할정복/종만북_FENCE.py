@@ -31,17 +31,7 @@ def getMaxRect(left, right):
             midLeft -= 1
             midHeight = min(midHeight, board[midLeft])
         midSizeMax = max(midSizeMax, (midRight-midLeft+1) * midHeight)
-        # midLeftHeight = min(board[midLeft-1], midHeight)
-        # midRightHeight = min(board[midRight+1], midHeight)
-        # if midLeftHeight <= midRightHeight:
-        #     midRight += 1
-        #     midHeight = midRightHeight
-        # else:
-        #     midLeft -= 1
-        #     midHeight = midLeftHeight
         
-        # midSizeMax = max(midSizeMax, (midRight-midLeft+1) * midHeight)
-
     return midSizeMax
 
 solution()

@@ -71,5 +71,4 @@ def findAlphabets(graph, flag, now_x, now_y, word):
 
     return False
             
-
 solution()
